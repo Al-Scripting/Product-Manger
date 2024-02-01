@@ -1,5 +1,5 @@
 //Product manager by Al Muqshith Mohammed Shifan
-//
+//#100862739
 
 #include <iostream>
 #include <vector>
@@ -59,7 +59,6 @@ private:
 
 public:
     // Load the data from the text file to read
-
     // function to read the data file
     void readData(string filename) {
         ifstream file(filename);
@@ -149,43 +148,68 @@ public:
 int main() {
     Product_Manager manager;
     manager.readData("product_data.txt");
+    int choice;
+    int ID;
+    string P_Name;
+    float Price;
+    string P_Category;
+    Product item;
+    string key;
+    string method;
 
-    cout << "Original Data: " << endl;
-    manager.Display();
+    while (true) {
+        cout << "\n\nPRODUCT MANAGER" << endl;
+        cout << "1. Display All Products" << endl;
+        cout << "2. Add Product" << endl;
+        cout << "3. Update Product" << endl;
+        cout << "4. Delete Product" << endl;
+        cout << "5. Search Product" << endl;
+        cout << "6. Sort Products" << endl;
+        cout << "7. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-// Demonstrate Insert, Update, Delete, Search
-    cout << "\nOriginal Data with New Items: " << endl;
-    manager.Add({99999, "Micro Cutter", 29.99, "Electronics"});
-    manager.Add({88888, "laser Pointer", 9.99, "Electronics"});
-    manager.Display();
+        switch (choice) {
+            case 1:
+                manager.Display();
+                break;
+            case 2:
+                cout << "Enter Product ID, Name, Price, and Category separated by space: ";
+                cin >> ID >> P_Name >> Price >> P_Category;
+                manager.Add({ID, P_Name, Price, P_Category});
+                cout << "Added " << P_Name << " Successfully";
+                break;
+            case 3:
+                cout << "Enter Product ID of the product you want to update: ";
+                cin >> ID;
+                cout << "Enter New Product ID, Name, Price, and Category separated by space: ";
+                cin >> item.ID >> item.P_Name >> item.Price >> item.P_Category;
+                manager.Update(ID, item);
+                cout << "Updated " << P_Name << " Successfully";
+                break;
+            case 4:
+                cout << "Enter Product ID of the product you want to delete: ";
+                cin >> ID;
+                manager.Delete(ID);
+                cout << "Deleted " << ID << " Successfully";
+                break;
+            case 5:
+                cout << "Enter Product ID of the product you want to search: ";
+                cin >> key;
+                manager.Search(key);
+                break;
+            case 6:
+                cout << "Enter sorting method (bubble or insertion): ";
+                cin >> method;
+                manager.Sort(method);
+                break;
+            case 7:
+                cout << "Exiting Program..." << endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
 
-
-
-    cout << "\nOriginal Data with Updated Items: " << endl;
-    manager.Update(99999, {99991, "Nano Cutter", 39.99, "Home & Kitchen"});
-    manager.Display();
-
-
-    cout << "\nDeleting Function Demo: " << endl;
-    manager.Delete(99991);
-    manager.Delete(88888);
-    manager.Display();
-
-    cout << "\nSearching Function Demo:" << endl;
-    cout << "Searching by ID:" << endl;
-    Product foundID = manager.Search("69525");
-
-
-    cout << "\nItems sorted by price with Bubble Sort: " << endl;
-    // Sorting and displaying products
-    manager.Sort("bubble");
-    manager.Display();
-
-    cout << "\nItems sorted by price with insertion Sort: " << endl;
-    // Sorting and displaying products
-    manager.Sort("insertion");
-    manager.Display();
-
-    cout << "\nEND OF PROGRAM" << endl;
     return 0;
 }
